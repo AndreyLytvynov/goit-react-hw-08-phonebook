@@ -89,13 +89,3 @@ class App extends Component {
 }
 
 export default App;
-
-// Filter.propTypes = {
-//   username: PropTypes.string.isRequired,
-//   tag: PropTypes.string.isRequired,
-//   stats: PropTypes.shape({
-//     views: PropTypes.number.isRequired,
-//     likes: PropTypes.number.isRequired,
-//     followers: PropTypes.number.isRequired,
-//   }),
-// };
