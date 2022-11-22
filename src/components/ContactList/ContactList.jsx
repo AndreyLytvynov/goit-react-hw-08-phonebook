@@ -1,5 +1,6 @@
 import React from 'react';
 import { nanoid } from 'nanoid';
+import PropTypes from 'prop-types';
 import { Contacts } from './ContactList.styled';
 
 const ContactList = ({ filterContacts, deleteContact }) => {
@@ -27,3 +28,14 @@ const ContactList = ({ filterContacts, deleteContact }) => {
 };
 
 export default ContactList;
+
+ContactList.propTypes = {
+  deleteContact: PropTypes.func.isRequired,
+  filterContacts: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      number: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+};

@@ -1,5 +1,6 @@
 import React from 'react';
 import { FilterField } from './Filter.styled';
+import PropTypes from 'prop-types';
 
 const Filter = ({ handleChange, filterStateData }) => {
   return (
@@ -16,3 +17,8 @@ const Filter = ({ handleChange, filterStateData }) => {
 };
 
 export default Filter;
+
+Filter.propTypes = {
+  handleChange: PropTypes.func.isRequired,
+  filterStateData: PropTypes.string.isRequired,
+};

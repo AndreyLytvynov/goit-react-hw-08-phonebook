@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Form } from './ContactForm.styled';
 
 export default class ContactForm extends Component {
+  static propTypes = {
+    addContacts: PropTypes.func.isRequired,
+  };
+
   state = { name: '', number: '' };
 
   handleChange = e => {
