@@ -15,6 +15,25 @@ class App extends Component {
     ],
     filter: '',
   };
+
+  componentDidMount() {
+    if (!this.getLocalData('contacts')) return;
+    const localStorContacts = this.getLocalData('contacts');
+    this.setState({
+      contacts: localStorContacts,
+    });
+  }
+
+  componentDidUpdate(_, prevState) {
+    if (this.state.contacts !== prevState.contacts) {
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+    }
+  }
+
+  getLocalData(key) {
+    return JSON.parse(localStorage.getItem(key)) || [];
+  }
+
   addContacts = ({ name, number }) => {
     const checkedName = this.checkingNameInState(name);
     if (checkedName) {
