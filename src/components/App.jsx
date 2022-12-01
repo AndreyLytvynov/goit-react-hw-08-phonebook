@@ -6,8 +6,9 @@ import ContactList from './ContactList/ContactList';
 import { Box } from './Box';
 
 const App = () => {
-  const [contacts, setContacts] =
-    useState(() => JSON.parse(localStorage.getItem('contacts'))) || [];
+  const [contacts, setContacts] = useState(
+    () => JSON.parse(localStorage.getItem('contacts')) || []
+  );
   const [filter, setFilter] = useState('');
 
   useEffect(() => {
@@ -18,13 +19,15 @@ const App = () => {
     const checkedName = checkingNameInState(name);
     if (checkedName) {
       alert('this name is already available');
-      return true;
+      return;
     }
     setContacts(prevState => [{ id: nanoid(), name, number }, ...prevState]);
   };
 
   const deleteContact = contactId => {
-    setContacts(prevState => prevState.filter(el => el.id !== contactId));
+    setContacts(prevState => {
+      return prevState.filter(el => el.id !== contactId);
+    });
   };
 
   const checkingNameInState = newName => {
@@ -38,6 +41,8 @@ const App = () => {
   };
 
   const getFilterContacts = () => {
+    if (!contacts) return [];
+
     return contacts.filter(el =>
       el.name.toLowerCase().includes(filter.toLowerCase())
     );

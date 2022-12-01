@@ -18,7 +18,7 @@ const ContactForm = ({ addContacts }) => {
         setNumber(value);
         break;
       default:
-        console.log('Net takogo polya');
+        console.log('Not this field');
     }
   };
 
