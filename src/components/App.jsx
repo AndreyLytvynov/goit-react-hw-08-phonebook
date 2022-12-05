@@ -1,50 +1,29 @@
-import React, { useEffect, useState } from 'react';
 import { nanoid } from 'nanoid';
 import ContactForm from './ContactForm/ContactForm';
 import Filter from './Filter/Filter';
 import ContactList from './ContactList/ContactList';
 import { Box } from './Box';
+import { useDispatch, useSelector } from 'react-redux';
+import { addContact } from 'redux/store';
 
 const App = () => {
-  const [contacts, setContacts] = useState(
-    () => JSON.parse(localStorage.getItem('contacts')) || []
-  );
-  const [filter, setFilter] = useState('');
+  const contactsFromStore = useSelector(state => state.contacts);
+  const filterFromStore = useSelector(state => state.filter);
 
-  useEffect(() => {
-    localStorage.setItem('contacts', JSON.stringify(contacts));
-  }, [contacts]);
+  const dispatch = useDispatch();
 
   const addContacts = ({ name, number }) => {
-    const checkedName = checkingNameInState(name);
-    if (checkedName) {
-      alert('this name is already available');
-      return;
-    }
-    setContacts(prevState => [{ id: nanoid(), name, number }, ...prevState]);
-  };
-
-  const deleteContact = contactId => {
-    setContacts(prevState => {
-      return prevState.filter(el => el.id !== contactId);
-    });
-  };
-
-  const checkingNameInState = newName => {
-    return contacts.find(
-      ({ name }) => name.toLowerCase() === newName.toLowerCase()
-    );
-  };
-
-  const handleFilterChangeInState = e => {
-    setFilter(e.target.value);
+    const newContact = {
+      id: nanoid(),
+      name,
+      number,
+    };
+    dispatch(addContact(newContact));
   };
 
   const getFilterContacts = () => {
-    if (!contacts) return [];
-
-    return contacts.filter(el =>
-      el.name.toLowerCase().includes(filter.toLowerCase())
+    return contactsFromStore.filter(el =>
+      el.name.toLowerCase().includes(filterFromStore.toLowerCase())
     );
   };
 
@@ -67,13 +46,10 @@ const App = () => {
       </Box>
       <Box mt="20px">
         <h2>Contacts</h2>
-        <Filter
-          handleChange={handleFilterChangeInState}
-          filterStateData={filter}
-        />
+        <Filter />
         <ContactList
+          contacts={contactsFromStore}
           filterContacts={getFilterContacts()}
-          deleteContact={deleteContact}
         />
       </Box>
     </Box>

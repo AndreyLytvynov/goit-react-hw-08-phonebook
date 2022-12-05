@@ -2,8 +2,16 @@ import React from 'react';
 import { nanoid } from 'nanoid';
 import PropTypes from 'prop-types';
 import { Contacts } from './ContactList.styled';
+import { removeContact } from 'redux/store';
+import { useDispatch } from 'react-redux';
 
-const ContactList = ({ filterContacts, deleteContact }) => {
+const ContactList = ({ filterContacts }) => {
+  const dispatch = useDispatch();
+
+  const deleteContact = contactId => {
+    dispatch(removeContact(contactId));
+  };
+
   return (
     <Contacts>
       {filterContacts.map(({ name, number, id }) => {
@@ -30,7 +38,6 @@ const ContactList = ({ filterContacts, deleteContact }) => {
 export default ContactList;
 
 ContactList.propTypes = {
-  deleteContact: PropTypes.func.isRequired,
   filterContacts: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,

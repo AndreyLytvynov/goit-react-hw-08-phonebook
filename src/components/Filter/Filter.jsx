@@ -1,14 +1,23 @@
 import React from 'react';
 import { FilterField } from './Filter.styled';
-import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { setStatusFilter } from 'redux/store';
 
-const Filter = ({ handleChange, filterStateData }) => {
+const Filter = () => {
+  const filterFromStore = useSelector(state => state.filter);
+
+  const dispatch = useDispatch();
+
+  const handleChange = e => {
+    dispatch(setStatusFilter(e.target.value));
+  };
+
   return (
     <FilterField>
       <span>Find contacts by name</span>
       <input
         onChange={handleChange}
-        value={filterStateData}
+        value={filterFromStore}
         type="text"
         name="filter"
       />
@@ -17,8 +26,3 @@ const Filter = ({ handleChange, filterStateData }) => {
 };
 
 export default Filter;
-
-Filter.propTypes = {
-  handleChange: PropTypes.func.isRequired,
-  filterStateData: PropTypes.string.isRequired,
-};
