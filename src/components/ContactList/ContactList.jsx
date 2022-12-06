@@ -2,7 +2,7 @@ import React from 'react';
 import { nanoid } from 'nanoid';
 import PropTypes from 'prop-types';
 import { Contacts } from './ContactList.styled';
-import { removeContact } from 'redux/store';
+import { removeContact } from '../../redux/contactsSlice';
 import { useDispatch } from 'react-redux';
 
 const ContactList = ({ filterContacts }) => {

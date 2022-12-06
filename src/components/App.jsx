@@ -1,25 +1,15 @@
-import { nanoid } from 'nanoid';
 import ContactForm from './ContactForm/ContactForm';
 import Filter from './Filter/Filter';
 import ContactList from './ContactList/ContactList';
 import { Box } from './Box';
-import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from 'redux/store';
+import { useSelector } from 'react-redux';
 
 const App = () => {
-  const contactsFromStore = useSelector(state => state.contacts);
+  const contactsFromStore = useSelector(state => {
+    return state.contacts.contacts;
+  });
+
   const filterFromStore = useSelector(state => state.filter);
-
-  const dispatch = useDispatch();
-
-  const addContacts = ({ name, number }) => {
-    const newContact = {
-      id: nanoid(),
-      name,
-      number,
-    };
-    dispatch(addContact(newContact));
-  };
 
   const getFilterContacts = () => {
     return contactsFromStore.filter(el =>
@@ -42,7 +32,7 @@ const App = () => {
     >
       <Box>
         <h2>Phonebook</h2>
-        <ContactForm addContacts={addContacts} />
+        <ContactForm />
       </Box>
       <Box mt="20px">
         <h2>Contacts</h2>

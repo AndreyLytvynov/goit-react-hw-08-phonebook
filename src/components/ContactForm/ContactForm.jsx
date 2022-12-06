@@ -2,10 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Form } from './ContactForm.styled';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { nanoid } from 'nanoid';
+import { addContact } from 'redux/contactsSlice';
 
-const ContactForm = ({ addContacts }) => {
+const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+
+  const dispatch = useDispatch();
 
   const handleChange = e => {
     const { name: nameEvent, value } = e.target;
@@ -24,10 +29,13 @@ const ContactForm = ({ addContacts }) => {
 
   const formSubmitHandle = e => {
     e.preventDefault();
-    const add = addContacts({ name, number });
-    if (!add) {
-      resetForm();
-    }
+    const contacts = {
+      id: nanoid(),
+      name,
+      number,
+    };
+    dispatch(addContact(contacts));
+    resetForm();
   };
 
   const resetForm = () => {
