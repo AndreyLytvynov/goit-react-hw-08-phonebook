@@ -10,7 +10,11 @@ const contactsSlice = createSlice({
   },
   reducers: {
     addContact(state, action) {
-      if (state.contacts.find(el => action.payload.name === el.name)) {
+      if (
+        state.contacts.find(
+          el => action.payload.name.toLowerCase() === el.name.toLowerCase()
+        )
+      ) {
         alert('Please enter other name');
         return state;
       }
