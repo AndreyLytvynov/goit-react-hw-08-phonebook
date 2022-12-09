@@ -1,15 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addContacts } from 'redux/contactsSlice/operation';
+import { ToastContainer, toast } from 'react-toastify';
+
 import { Form } from './ContactForm.styled';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { nanoid } from 'nanoid';
-import { addContact } from 'redux/contactsSlice';
+import '../../../node_modules/react-toastify/dist/ReactToastify.css';
 
 const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-
+  const contacts = useSelector(state => state.contacts.contacts.items);
   const dispatch = useDispatch();
 
   const handleChange = e => {
@@ -29,13 +29,21 @@ const ContactForm = () => {
 
   const formSubmitHandle = e => {
     e.preventDefault();
-    const contacts = {
-      id: nanoid(),
+    const contact = {
       name,
-      number,
+      phone: number,
     };
-    dispatch(addContact(contacts));
+    if (contacts.find(({ phone }) => phone === number)) {
+      toast(
+        'This phone number is already in the contact list, please write another phone number',
+        { type: 'warning', autoClose: 1000 }
+      );
+      return;
+    }
+
+    dispatch(addContacts(contact));
     resetForm();
+    toast('Contact is added to list', { type: 'success', autoClose: 1000 });
   };
 
   const resetForm = () => {
@@ -45,6 +53,7 @@ const ContactForm = () => {
 
   return (
     <Form onSubmit={formSubmitHandle}>
+      <ToastContainer />
       <label>
         <span>Name</span>
         <input
@@ -77,7 +86,3 @@ const ContactForm = () => {
 };
 
 export default ContactForm;
-
-ContactForm.ropTypes = {
-  addContacts: PropTypes.func.isRequired,
-};

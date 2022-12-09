@@ -2,14 +2,21 @@ import ContactForm from './ContactForm/ContactForm';
 import Filter from './Filter/Filter';
 import ContactList from './ContactList/ContactList';
 import { Box } from './Box';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { fetchContacts } from 'redux/contactsSlice/operation';
+
+import { Oval } from 'react-loader-spinner';
 
 const App = () => {
-  const contactsFromStore = useSelector(state => {
-    return state.contacts.contacts;
-  });
-
+  const contactsFromStore = useSelector(state => state.contacts.contacts.items);
+  const isLoading = useSelector(state => state.contacts.contacts.isLoading);
   const filterFromStore = useSelector(state => state.filter);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
 
   const getFilterContacts = () => {
     return contactsFromStore.filter(el =>
@@ -35,8 +42,12 @@ const App = () => {
         <ContactForm />
       </Box>
       <Box mt="20px">
-        <h2>Contacts</h2>
-        <Filter />
+        <Box display="flex" alignItems="center">
+          <h2>Contacts:</h2>
+          {isLoading && <Oval wrapperClass="loader" height={20} width={20} />}
+        </Box>
+
+        {contactsFromStore.length > 1 && <Filter />}
         <ContactList
           contacts={contactsFromStore}
           filterContacts={getFilterContacts()}
