@@ -1,10 +1,11 @@
+import { number } from 'prop-types';
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 
 import { deleteContacts } from 'redux/contactsSlice/operation';
 
-const ContactItem = ({ name, phone, id }) => {
+const ContactItem = ({ name, number, id }) => {
   const dispatch = useDispatch();
 
   const isLoading = useSelector(state => state.contacts.contacts.isLoading);
@@ -20,7 +21,7 @@ const ContactItem = ({ name, phone, id }) => {
   return (
     <li>
       <span>
-        {name}: {phone}
+        {name}: {number}
       </span>
       <button
         disabled={isLoading}

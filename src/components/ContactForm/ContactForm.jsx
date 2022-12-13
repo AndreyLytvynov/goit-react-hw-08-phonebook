@@ -31,9 +31,9 @@ const ContactForm = () => {
     e.preventDefault();
     const contact = {
       name,
-      phone: number,
+      number: number,
     };
-    if (contacts.find(({ phone }) => phone === number)) {
+    if (contacts.find(({ number: phone }) => phone === number)) {
       toast(
         'This phone number is already in the contact list, please write another phone number',
         { type: 'warning', autoClose: 1000 }

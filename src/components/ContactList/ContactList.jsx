@@ -10,9 +10,9 @@ const ContactList = ({ filterContacts }) => {
   return (
     <div>
       <Contacts>
-        {filterContacts.map(({ name, phone, id }) => {
+        {filterContacts.map(({ name, number, id }) => {
           return (
-            <ContactItem key={nanoid()} name={name} phone={phone} id={id} />
+            <ContactItem key={nanoid()} name={name} number={number} id={id} />
           );
         })}
       </Contacts>
@@ -26,7 +26,7 @@ ContactList.propTypes = {
   filterContacts: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string.isRequired,
-      phone: PropTypes.string.isRequired,
+      number: PropTypes.string.isRequired,
     })
   ).isRequired,
 };
