@@ -1,9 +1,10 @@
-import { number } from 'prop-types';
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
+import { RiDeleteBin6Fill } from 'react-icons/ri';
 
 import { deleteContacts } from 'redux/contactsSlice/operation';
+import { TitleStyled, FieldStyled } from './ContactItem.styled';
 
 const ContactItem = ({ name, number, id }) => {
   const dispatch = useDispatch();
@@ -20,9 +21,16 @@ const ContactItem = ({ name, number, id }) => {
 
   return (
     <li>
-      <span>
-        {name}: {number}
-      </span>
+      <div>
+        <FieldStyled>
+          <TitleStyled>Name:</TitleStyled>
+          <span>{name}</span>
+        </FieldStyled>
+        <p>
+          <TitleStyled>Phone:</TitleStyled>
+          <span>{number}</span>
+        </p>
+      </div>
       <button
         disabled={isLoading}
         type="button"
@@ -30,7 +38,7 @@ const ContactItem = ({ name, number, id }) => {
           deleteContact(id);
         }}
       >
-        Delete
+        <RiDeleteBin6Fill />
       </button>
     </li>
   );

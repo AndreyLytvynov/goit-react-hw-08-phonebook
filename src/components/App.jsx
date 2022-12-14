@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { currentUser } from 'redux/auth/authOperation';
 import PrivateRoute from './Routs/PrivateRoute';
+import PublicRoute from './Routs/PublicRoute';
 
 const SharedLayout = lazy(() => import('./SharedLayout/SharedLayout'));
 const Contacts = lazy(() => import('../pages/Contacts'));
@@ -24,24 +25,46 @@ const App = () => {
   }, [dispatch]);
 
   return !isRefreshing ? (
-    <Suspense>
+    <Suspense fallback={false}>
       <Routes>
         <Route path="/" element={<SharedLayout />}>
-          {/* <Route index element={<Contacts />} />
-          <Route path="contacts" element={<Contacts />} /> */}
-
-          <PrivateRoute path="contacts">
-            {/* <Route index element={<Contacts />} /> */}
-            <Contacts />
-          </PrivateRoute>
-
-          <Route path="login" element={<Login />} />
-          <Route path="register" element={<Register />} />
+          <Route
+            index
+            element={
+              <PrivateRoute>
+                <Contacts />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="contacts"
+            element={
+              <PrivateRoute>
+                <Contacts />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="login"
+            element={
+              <PublicRoute redirectTo="/contacts">
+                <Login />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="register"
+            element={
+              <PublicRoute redirectTo="/contacts">
+                <Register />
+              </PublicRoute>
+            }
+          />
         </Route>
       </Routes>
     </Suspense>
   ) : (
-    <div></div>
+    <></>
   );
 };
 

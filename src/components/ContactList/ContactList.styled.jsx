@@ -18,18 +18,16 @@ export const Contacts = styled.ul`
     border-radius: ${p => p.theme.radii.normal};
   }
   button {
+    display: flex;
     margin-left: 10px;
-    font-size: 10px;
-    width: 70px;
-    height: 20px;
-    left: 449px;
-    top: 3766px;
+    font-size: 20px;
+    padding: 5px;
+    background-color: #fff;
     border: none;
-    background: #2a2369;
-    border-radius: 5px;
-    color: white;
+    border-radius: ${p => p.theme.radii.normal};
     &:hover {
       background: #433a94;
+      color: #fff;
     }
   }
 `;
