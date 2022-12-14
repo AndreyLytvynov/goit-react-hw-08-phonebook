@@ -26,3 +26,12 @@ export async function addContact(contact) {
     return error;
   }
 }
+
+export async function editContact(id, contact) {
+  try {
+    const response = await axios.patch(`/contacts/${id}`, contact);
+    if (response.status === 200) return response;
+  } catch (error) {
+    return error;
+  }
+}
