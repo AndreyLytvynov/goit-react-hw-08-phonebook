@@ -19,10 +19,8 @@ export const Contacts = styled.ul`
   }
   button {
     display: flex;
-    margin-left: 10px;
     font-size: 20px;
     padding: 5px;
-    background-color: #fff;
     border: none;
     border-radius: ${p => p.theme.radii.normal};
     &:hover {

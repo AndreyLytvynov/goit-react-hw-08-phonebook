@@ -8,3 +8,8 @@ export const TitleStyled = styled.span`
 export const FieldStyled = styled.p`
   margin-bottom: 1px;
 `;
+
+export const ButtonBoxStyled = styled.p`
+  display: flex;
+  gap: 5px;
+`;

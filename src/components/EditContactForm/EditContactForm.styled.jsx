@@ -35,7 +35,7 @@ export const EditFormStyled = styled.form`
     color: white;
     text-align: center;
     &:hover {
-      background: #1f5b3f;
+      background-color: #1f5b3f;
     }
   }
 `;

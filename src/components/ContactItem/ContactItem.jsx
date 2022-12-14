@@ -4,9 +4,12 @@ import { toast } from 'react-toastify';
 import { RiDeleteBin6Fill, RiEdit2Fill } from 'react-icons/ri';
 
 import { deleteContacts } from 'redux/contactsSlice/operation';
-import { TitleStyled, FieldStyled } from './ContactItem.styled';
+import {
+  TitleStyled,
+  FieldStyled,
+  ButtonBoxStyled,
+} from './ContactItem.styled';
 import Modal from 'components/ModalEdit/ModalEdit';
-import { Box } from 'components/Box';
 
 const ContactItem = ({ name, number, id }) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -38,7 +41,7 @@ const ContactItem = ({ name, number, id }) => {
           <span>{number}</span>
         </p>
       </div>
-      <Box display="flex">
+      <ButtonBoxStyled>
         <button disabled={isLoading} type="button" onClick={openModal}>
           <RiEdit2Fill />
         </button>
@@ -51,7 +54,7 @@ const ContactItem = ({ name, number, id }) => {
         >
           <RiDeleteBin6Fill />
         </button>
-      </Box>
+      </ButtonBoxStyled>
       {modalVisible && <Modal openModal={openModal} id={id} />}
     </li>
   );
